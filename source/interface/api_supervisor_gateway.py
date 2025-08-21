@@ -1,4 +1,3 @@
-# CUDA_VISIBLE_DEVICES=1 uvicorn api_supervisor_gateway:app --host 0.0.0.0 --port 9508 
 import sys
 import os
 import re
@@ -46,7 +45,7 @@ async def add_request_id_middleware(request: Request, call_next):
 
     finally:
         process_time = round(time.time() - start_time, 4)
-        print.info(
+        print(
             "[API][MIDDLE/RESP] %s %s | Status: %s | Duration: %.4fs",
             request.method,
             request.url.path,

@@ -26,7 +26,7 @@ class SupervisorGraph:
         self.nodes = {
             "supervisor_node": self.supervisor_node,
             "web_research_node": self.web_research_node,
-            "history_resarch_node": self.history_resarch_node,
+            "history_research_node": self.history_research_node,
             "final_answer_node": self.final_answer_node,
         }
         self.graph = self.graph_build()
@@ -147,7 +147,7 @@ class SupervisorGraph:
             goto="supervisor_node"
         )
     
-    async def history_resarch_node(self, state: MainState) -> Command[Literal["supervisor_node"]]:
+    async def history_research_node(self, state: MainState) -> Command[Literal["supervisor_node"]]:
         # 1) pending history task 선택
         pending = next(
             (t for t in state.get("tasks", {}).values()
@@ -199,14 +199,14 @@ class SupervisorGraph:
         return Command(
             goto="supervisor_node",
             update={
-                "messages": [AIMessage(content=result.content, name="history_resarch_node")],
+                "messages": [AIMessage(content=result.content, name="history_research_node")],
                 "results": [wr],
                 "tasks": {updated_task.id: updated_task},
             },
         )
 
     # ---------------[Supervisor Node]---------------
-    def supervisor_node(self, state: MainState) -> Command[List[Literal["web_research_node", "history_resarch_node", "final_answer_node"]]]:
+    def supervisor_node(self, state: MainState) -> Command[List[Literal["web_research_node", "history_research_node", "final_answer_node"]]]:
         
         step = state.get("num_generation", 0)
         is_generationMax = step >= 3
@@ -266,7 +266,7 @@ class SupervisorGraph:
                     if t.domain == "web":
                         nxt.append("web_research_node")
                     elif t.domain == "history":
-                        nxt.append("history_resarch_node")
+                        nxt.append("history_research_node")
 
             updates["num_generation"] = step + 1
 
@@ -284,7 +284,7 @@ class SupervisorGraph:
         if pending_web:
             nxt.append("web_research_node")
         if pending_history:
-            nxt.append("history_resarch_node")
+            nxt.append("history_research_node")
             
 
         updates.update({ "num_generation": step + 1 })
