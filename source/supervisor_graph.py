@@ -99,8 +99,7 @@ class SupervisorGraph:
         """))
         chain = judge_prompt | self.llm.with_structured_output(JudgeOut)
         try:
-            result = await chain.ainvoke({"question": question, "answer": answer})
-            return result
+            return await chain.ainvoke({"question": question, "answer": answer})
         except Exception as e:
             return JudgeOut(coverage=0.5, faithfulness=0.5, confidence=0.5, notes=f"judge timeout/fail: {e}")
 
@@ -246,7 +245,7 @@ class SupervisorGraph:
         pending_web = [t for t in tasks.values() if t.domain == "web" and t.status == "pending"]
         pending_history = [t for t in tasks.values() if t.domain == "history" and t.status == "pending"]
 
-        print(f"web: {pending_web}, history: {pending_history}")
+        print(f"pending task = web: {pending_web}, history: {pending_history}")
         # 3) 모든 task가 끝났다면 답변 품질 확인 후 종료
         if not pending_web and not pending_history:
 
@@ -257,7 +256,6 @@ class SupervisorGraph:
                 t = tasks.get(r.task_id)
                 if not t:
                     continue
-
                 # done인 애들 pending으로 전환
                 if t.status != "pending":
                     new_t = t.model_copy(update={"status": "pending"})
