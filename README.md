@@ -163,9 +163,9 @@ Command `goto` 패턴을 사용하여 **각 노드를 병렬 처리**하여 속�
 #### 지표 & 임계치
 
 ```python
-MIN_COVERAGE   = 0.5
-MIN_FAITHFUL   = 0.5
-MIN_CONFIDENCE = 0.5
+MIN_COVERAGE   = 0.3
+MIN_FAITHFUL   = 0.3
+MIN_CONFIDENCE = 0.3
 
 def is_weak(result) -> bool:
     fails = int(result["coverage"]    < MIN_COVERAGE)           + int(result["faithfulness"]< MIN_FAITHFUL)           + int(result["confidence"]  < MIN_CONFIDENCE)
