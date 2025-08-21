@@ -33,9 +33,9 @@ class SupervisorGraph:
         self.KST = ZoneInfo("Asia/Seoul") # 웹에서 날짜에 사용
 
         # 정확도 평가 기준
-        self.MIN_COVERAGE = 0.5
-        self.MIN_FAITHFUL = 0.5
-        self.MIN_CONFIDENCE = 0.5
+        self.MIN_COVERAGE = 0.3
+        self.MIN_FAITHFUL = 0.3
+        self.MIN_CONFIDENCE = 0.3
 
     def graph_build(self):
         graph_builder = StateGraph(MainState)
