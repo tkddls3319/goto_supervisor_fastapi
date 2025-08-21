@@ -60,7 +60,7 @@ class SupervisorGraph:
 
     # ---------------[Planner & Judge]---------------
 
-    def _plan_tasks(self, messages: List[AnyMessage], history: List[AnyMessage])  -> Union[PlanOut]:
+    def _plan_tasks(self, messages: List[AnyMessage], history: List[AnyMessage])  -> PlanOut:
         planner_prompt = PromptTemplate.from_template(dedent("""
 [분해 원칙]
 1) 같은 주제/대상(node)라도 요청 행위가 다르면 반드시 별도 task로 분리한다.
