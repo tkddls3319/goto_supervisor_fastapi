@@ -51,6 +51,26 @@
 
 ---
 
+## 환경 및 패키지
+
+- Python == 3.12.11
+
+<details>
+<summary>패키지 보기</summary>
+
+```txt
+Package                                  Version
+---------------------------------------- -------------
+langchain                                 0.3.27
+langchain-community                       0.3.27
+langchain-core                            0.3.72
+langgraph                                 0.6.3
+```
+
+</details>
+
+---
+
 ## SupervisorGraph 워크플로우
 
 ### 목표
